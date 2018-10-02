@@ -10,7 +10,7 @@ email = ''
 uri = ''
 
 
-def main(values):
+def update_handler(event, context):
     service_info = {
         "private_key": private_key,
         "client_email": email,
@@ -29,7 +29,3 @@ def main(values):
                                                            range=range_name,
                                                            valueInputOption='RAW',
                                                            body=body).execute()
-
-
-if __name__ == '__main__':
-    main([''])

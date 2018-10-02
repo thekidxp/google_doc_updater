@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TBBL Sign Up</title>
+    <link href="signupSheet.css" rel="stylesheet">
+</head>
+<body>
+<form id="signup">
+    <h1>Signup form</h1>
+    <p>Required fields are followed by <strong><abbr title="required">*</abbr></strong>.</p>
+    <section>
+        <h2>Coach Information</h2>
+        <p>
+            <label for="coach_name">
+                <span>Coach Name: </span>
+                <strong><abbr title="required">*</abbr></strong>
+            </label>
+            <input type="text" id="coach_name" name="coach_name" required>
+        </p>
+        <p>
+            <label for="mail">
+                <span>E-mail: </span>
+                <strong><abbr title="required">*</abbr></strong>
+            </label>
+            <input type="email" id="mail" name="user_mail" required>
+        </p>
+        <p>
+            <label for="twitch_name">
+                <span>TBBL Name: </span>
+                <strong><abbr title="required">*</abbr></strong>
+            </label>
+            <input type="text" id="twitch_name" name="twitch_name" required>
+        </p>
+        <p>
+            <label for="discord_name">
+                <span>Discord Username: </span>
+                <strong><abbr title="required">*</abbr></strong>
+            </label>
+            <input type="text" id="discord_name" name="discord_name" required>
+        </p>
+    </section>
+    <section>
+        <h2>Team Information</h2>
+        <label for="team_name">
+            <span>Team Name:</span>
+            <strong><abbr title="required">*</abbr></strong>
+            <input type="text" id="team_name" name="team_name" required>
+        </label>
+        <fieldset>
+            <legend>Region</legend>
+            <ul>
+                <li>
+                    <label for="na">
+                        <input type="radio" id="na" name="region" value="NA" required>
+                        NA
+                    </label>
+                </li>
+                <li>
+                    <label for="eu">
+                        <input type="radio" id="eu" name="region" value="EU" required>
+                        EU
+                    </label>
+                </li>
+            </ul>
+        </fieldset>
+        <p>
+            <label for="is_returning">
+                <span>Returning Team?</span>
+                <input type="checkbox" id="is_returning" name="is_returning">
+            </label>
+        </p>
+        <div id="returning_team_section" style="visibility: hidden">
+            <p>
+                <label for="returning_team">
+                    <span>Previous Team Name: </span>
+                    <input type="text" id="returning_team" name="returning_team">
+                </label>
+            </p>
+        </div>
+    </section>
+    <section>
+        <div id="comment_section">
+            <h2>Comments</h2>
+            <p>
+                <label for="comments">
+                    <span>Any additional comments:</span>
+                    <textarea id="comments" name="comments" form="signup"></textarea>
+                </label>
+            </p>
+        </div>
+    </section>
+    <br/>
+    <label for="submit">
+        <input type="button" id="submit" value="submit">
+    </label>
+</form>
+</body>
+<script>
+//    window.document.onload = function() {
+        let returning_check = document.getElementById('is_returning');
+        let team_text = document.getElementById('returning_team_section');
+
+        function textbox_visibility() {
+            if (returning_check.checked) {
+                team_text.style.visibility = 'show';
+            } else {
+                team_text.style.visibility = 'hidden';
+            }
+        }
+
+        returning_check.addEventListener("click", textbox_visibility);
+//    };
+</script>
+</html>

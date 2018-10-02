@@ -2,3 +2,5 @@
 *.iml
 token.json
 credentials.json
+creds/
+venv/

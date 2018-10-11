@@ -6,7 +6,7 @@
     <link href="signupSheet.css" rel="stylesheet">
 </head>
 <body>
-<form id="signup">
+<form id="signup" action="https://ovcrjdr7lf.execute-api.us-east-2.amazonaws.com/default/sheets_update" method="post">
     <h1>Signup form</h1>
     <p>Required fields are followed by <strong><abbr title="required">*</abbr></strong>.</p>
     <section>
@@ -70,11 +70,11 @@
                 <input type="checkbox" id="is_returning" name="is_returning">
             </label>
         </p>
-        <div id="returning_team_section" style="visibility: hidden">
+        <div id="returning_team_section">
             <p>
-                <label for="returning_team">
-                    <span>Previous Team Name: </span>
-                    <input type="text" id="returning_team" name="returning_team">
+                <label for="returning_team_division">
+                    <span>Previous division: </span>
+                    <input type="text" id="returning_team_division" name="returning_team_division">
                 </label>
             </p>
         </div>
@@ -97,19 +97,5 @@
 </form>
 </body>
 <script>
-//    window.document.onload = function() {
-        let returning_check = document.getElementById('is_returning');
-        let team_text = document.getElementById('returning_team_section');
-
-        function textbox_visibility() {
-            if (returning_check.checked) {
-                team_text.style.visibility = 'show';
-            } else {
-                team_text.style.visibility = 'hidden';
-            }
-        }
-
-        returning_check.addEventListener("click", textbox_visibility);
-//    };
 </script>
 </html>

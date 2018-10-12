@@ -20,13 +20,15 @@ def update_handler(event, context):
     spreadsheet_id = sheet_id
     range_name = 'Sheet1'
     body = {
-        'values': [[event['key1'], event['key2'], event['key3'], event['key4']]]
+        'values': [[event['coach_name'], event['email'], event['twitch_name'],
+                    event['discord_name'], event['team_name'], event['region'], event['is_returning'],
+                    event['returning_team_division'], event['comments']]]
     }
 
     return sheets_service.spreadsheets().values().append(spreadsheetId=spreadsheet_id,
-                                                           range=range_name,
-                                                           valueInputOption='RAW',
-                                                           body=body).execute()
+                                                         range=range_name,
+                                                         valueInputOption='RAW',
+                                                         body=body).execute()
 
 
 if __name__ == '__main__':

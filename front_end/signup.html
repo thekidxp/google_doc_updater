@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>TBBL Sign Up</title>
     <link href="signupSheet.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 </head>
 <body>
 <form id="signup" action="https://ovcrjdr7lf.execute-api.us-east-2.amazonaws.com/default/sheets_update" method="post">
@@ -70,7 +72,7 @@
                 <input type="checkbox" id="is_returning" name="is_returning">
             </label>
         </p>
-        <div id="returning_team_section">
+        <div id="returning_team_section" style="display: none">
             <p>
                 <label for="returning_team_division">
                     <span>Previous division: </span>
@@ -94,8 +96,67 @@
     <label for="submit">
         <input type="button" id="submit" value="submit">
     </label>
+    <div id="form-response"></div>
 </form>
 </body>
 <script>
+    $('#signup').validate();
+
+    $(function () {
+
+        $('#is_returning').on('click', function () {
+            if ($(this).is(':checked')) {
+                $('#returning_team_section').show();
+                $('#returning_team_division').rules('add', {required: true});
+            }
+            else {
+                $('#returning_team_section').hide();
+                $('#returning_team_division').rules('remove', "required");
+            }
+        });
+
+        $("#submit").click(function (e) {
+            e.preventDefault();
+
+            if (!$('#signup').valid()) {
+                $('#form-response').text('Please check your responses')
+            } else {
+
+                let coach_name = $("#coach_name").val(),
+                    email = $("#mail").val(),
+                    twitch_name = $('#twitch_name').val(),
+                    discord_name = $('#discord_name').val(),
+                    team_name = $('#team_name').val(),
+                    region = $("[name='region']").val(),
+                    is_returning = $('#is_returning').is(':checked'),
+                    returning_team_division = $('#returning_team_division').val(),
+                    comments = $('#comments').val();
+
+
+                $.ajax({
+                    type: "POST",
+                    url: 'https://ovcrjdr7lf.execute-api.us-east-2.amazonaws.com/default/sheets_update',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        'coach_name': coach_name,
+                        'email': email,
+                        'twitch_name': twitch_name,
+                        'discord_name': discord_name,
+                        'team_name': team_name,
+                        'region': region,
+                        'is_returning': is_returning,
+                        'returning_team_division': returning_team_division,
+                        'comments': comments
+                    }),
+                    success: function (res) {
+                        $('#form-response').text('signup was sent.');
+                    },
+                    error: function () {
+                        $('#form-response').text('Error.');
+                    }
+                });
+            }
+        });
+    });
 </script>
 </html>
